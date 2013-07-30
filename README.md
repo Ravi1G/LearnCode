@@ -25,15 +25,17 @@ References
 Status
 =======
 
->the normal spoj/codeforces style is working fine
->admin could add + edit the questions
->topcoder style still needs some work
->frontend of few pages still needs to be done
+- the normal spoj/codeforces style is working fine
+- admin could add + edit the questions
+- topcoder style still needs some work
+- frontend of few pages still needs to be done
 
 Installation
 =============
 
 >create a new database in mysql
+>
 >update the database name, host, username and password of mysql in server_constraints.php
+>
 >run it on your machine and add issues 
 
