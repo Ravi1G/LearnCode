@@ -33,9 +33,9 @@ Status
 Installation
 =============
 
->create a new database in mysql
->
->update the database name, host, username and password of mysql in server_constraints.php
->
->run it on your machine and add issues 
++ create a new database in mysql
+
++ update the database name, host, username and password of mysql in server_constraints.php
+
++ run it on your machine and add issues 
 
