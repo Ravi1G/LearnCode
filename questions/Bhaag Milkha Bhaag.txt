@@ -1,0 +1,33 @@
+As you all know, Milkha Singh was a champion runner of his time. To be in good shape Milkha used to train a lot. His sports complex was very huge and rectangular in shape when viewed from above. The complex consisted of several running tracks represented as a r x c grid. Every day Milkha used to run through all the tracks once for warmup. But now renovation work has started on few tracks, so Milkha is not able to run through all of them. For example, a 3&#8201;×&#8201;4 cake may look as follows:
+         S...
+         ....
+         ..S.
+'S' denotes construction work is going on on that track.
+
+Inorder not to get hurt, Milkha thinks of a strategy to run through the tracks.
+Now, he chooses a row or a column that does not contain any track getting renovated and contains at least one track that he has not covered before.
+
+In other words, he decides to run through all the tracks that do not have construction work going on in any of the tracks in that particular row and column.
+
+Please output the *MAXIMUM* number of tracks that Milkha could run through.
+
+Input:
+The first line contains the number of test cases t.
+It is followed by t test cases.
+Every test case contains two integers r and c (2&#8201;&#8804;&#8201;r,&#8201;c&#8201;&#8804;&#8201;10), denoting the number of rows and the number of columns of the sports complex. The next r lines each contains c characters &#151; the j-th character of the i-th line denotes the content of the cell at row i and column j, and is either one of these:
+
+'.' character denotes a normal track;
+'S' character denotes a track getting renovated.
+
+Output:
+Output the maximum number of cake cells that Milkha could run through.
+
+Sample test:
+Input:
+     1
+     3 4
+     S...
+     ....
+     ..S.
+Output:
+     8
