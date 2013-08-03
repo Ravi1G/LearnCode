@@ -3,6 +3,7 @@
     ini_set('display_errors'.'1');
     session_start();
     include 'server_constraints.php';
+    include 'function.php';
     $con = mysqli_connect($host, $server_username, $server_password, $db);
 ?>
 <html>
@@ -30,8 +31,7 @@
             </div>
         </div>
 <?php
-    echo "<h3>Problemset</h3><br><br>";
-    echo "<div >
+    echo "<div style = \"margin:20px 30px\">
             <table class =\"table-style\">
             <th>id   </th>
             <th> Problem</th>";
@@ -42,7 +42,7 @@
         
         echo '<tr>
                 <td>'.$row['id'].'</td>
-                <td><a href = problem.php?id=' .$row['name']. '>'.$row['name'].'</a></td>
+                <td><a href = problem.php?id=' .string_to_url($row['name']). '>'.$row['name'].'</a></td>
                </tr> ';
     }
     echo "</table>

@@ -4,11 +4,14 @@
         ini_set('display_errors'.'1');
         session_start();
         include 'server_constraints.php';
+        include 'function.php';
         $con = mysqli_connect($host, $server_username, $server_password, $db);
 ?>
 <html>
     <head>
         <script language="javascript" type="text/javascript" src="js/editarea_0_8_2/edit_area/edit_area_full.js"></script>
+        <script language="javascript" type="text/javascript" src="js/jquery.js"></script>
+        <script language="javascript" type="text/javascript" src="js/jquery.autosize.js"></script>
         <script language="javascript" type="text/javascript">
         editAreaLoader.init({
                 id : "area"		// textarea id
@@ -16,6 +19,12 @@
                 ,start_highlight: true		// to display with highlight mode on start-up
         });
         </script>
+        <script>
+			$(function(){
+				$('.normal').autosize();
+				$('.animated').autosize({append: "\n"});
+			});
+		</script>
         <title>D-odge</title>
         <link href="css/style.css" rel="stylesheet">
     </head>
@@ -64,25 +73,47 @@
                 <a style="color:white;" href = <?php echo "bestsolutions.php?id=".$_GET['id'];?>>Best Solutions</a>
                 </div>
             </div>
+        <textarea class = "normal" style="background-image:url('images/cream_pixels.png'); outline: none; border: none" cols = "80"  readonly>
 <?php
-        $problem_name = $_GET['id'];
+        $problem_name = url_to_string($_GET['id']);
         
         $file_name = "questions/".$problem_name.".txt";
         $file = fopen($file_name,'r');
         $content = fread($file,filesize($file_name));
         $j = 0;
-        while($j<strlen($content))
+        $enter = 1;
+        echo $content;
+        /*while($j<strlen($content))
         {
-            if($content[$j] == "\n")
+            /*if($content[$j] == "\n")
+            echo "<br>";
+            else
+            echo $content[$j];*/
+        /*    if($content[$j] == "\n")
+            {
+                $enter = 1;
                 echo "<br>";
+            }
+            if($enter == 1)
+            {
+                if(!strcmp($content[$j],' '))
+                    echo "here&nbsp";
+                else
+                  $enter = 0;
+            }
             else
                 echo $content[$j];
             $j++;
-        }
+        }*/
 ?>
+        </textarea>
         </div>
         <div  style = "float:right ;width:50%">
-        <form action = "code-result.php" method = "post" id = "main-form">
+        <form action = "code-result.php?id=<?php echo string_to_url($problem_name);?>" method = "post" id = "main-form">
+            <label>Language</label><select name = "lang">
+                                        <option value = "C">C</option>
+                                        <option value = "C++">C++</option>
+                                    </select><br>
            <textarea id = "area" name = "code-area" rows = "30" cols = "80">
 /*enter your code here*/
 

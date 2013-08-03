@@ -4,6 +4,7 @@
         ini_set('display_errors'.'1');
         session_start();
         include '../server_constraints.php';
+        include '../function.php';
         $con = mysqli_connect($host, $server_username, $server_password, $db);
 ?>
 
@@ -40,6 +41,8 @@
         echo "<p style=\"background:#9ACD32;margin-left:300px; width:400px;padding:10px 20px; border-radius:2px; color:white;\">Question added Successfully</p>";
     else if($_GET['id'] == 2)
         echo "<p style=\"background:#9ACD32;margin-left:300px; width:400px;padding:10px 20px; border-radius:2px; color:white;\">Deletion Successfull</p>";
+    else if($_GET['id'] == 3)
+        echo "<p style=\"background:#9ACD32;margin-left:300px; width:400px;padding:10px 20px; border-radius:2px; color:white;\">Question updated Successfully</p>";
     ?>
         <?php
             echo "<div >
@@ -53,9 +56,9 @@
                 
                 echo '<tr>
                         <td>'.$row['id'].'</td>
-                        <td><a href = ../problem.php?id=' .$row['name']. '>'.$row['name'].'</a></td>
-                        <td style = "width:150px;"><a href = addques.php?id=' .$row['name'].'>edit</a></td>
-                        <td style = "width:150px"><a style = "color:red;" href = delete.php?id=' .$row['name'].'>delete</a></td>
+                        <td><a href = ../problem.php?id=' .string_to_url($row['name']). '>'.$row['name'].'</a></td>
+                        <td style = "width:150px;"><a href = editques.php?id=' .string_to_url($row['name']).'>edit</a></td>
+                        <td style = "width:150px"><a style = "color:red;" href = delete.php?id=' .string_to_url($row['name']).'>delete</a></td>
                        </tr> ';
             }
             echo "</table>

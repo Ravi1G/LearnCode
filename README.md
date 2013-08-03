@@ -37,5 +37,7 @@ Installation
 
 + update the database name, host, username and password of mysql in server_constraints.php
 
++ setup the database using the dodge.sql file in the repo
+
 + run it on your machine and add issues 
 

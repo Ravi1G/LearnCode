@@ -1,6 +1,9 @@
 <?php
-error_reporting(E_ALL);
-   ini_set('display_errors', '1');
+    /*
+     *@author: Vinit Pandey
+     */
+    error_reporting(E_ALL);
+    ini_set('display_errors', '1');
     session_start();
     include '../server_constraints.php';
     include '../function.php';
@@ -58,60 +61,32 @@ error_reporting(E_ALL);
         </div>
 
 <div id = "alert-div">
-<?
-
-    /*INput and output files*/
-    if(!isset($_GET['id']))
+<?php
+    if(isset($_POST['ques-statement']) && isset($_POST['ques-name']) && isset($_POST['ques-level']))
     {
-        if(isset($_POST['ques-statement']) && isset($_POST['ques-name']) && isset($_POST['ques-level']))
-        {
-            $query = "select * from questions where name = '".$_POST['ques-name']."'";
-            if(mysqli_query($con,$query))
-                $res = mysqli_query($con,$query);
-            else
-                echo "<p class = \"error\">".mysqli_error($con)."</p>";
-            if(mysqli_num_rows($res)==0)
+        echo $_POST['ques-level']."\n";
+            $query = "update questions set difficulty = '".$_POST['ques-level']."', name = '".$_POST['ques-name']."' where name = '".$_POST['ques-name']."'";
+            mysqli_query($con,$query);
+            $ques_file_name = "../questions/".$_POST['ques-name'].".txt";
+            $ques_file = fopen($ques_file_name,'w');
+            fwrite($ques_file,$_POST['ques-statement']);
+            fclose($ques_file);
+            
+            
+            $allowedExts = array("txt");
+            $temp = explode(".", $_FILES["input-file"]["name"]);
+            $extension = end($temp);
+            if($_FILES["input-file"]["error"] > 0)
             {
-                $allowedExts = array("txt");
-                $temp = explode(".", $_FILES["input-file"]["name"]);
-                $extension = end($temp);
-                $err = false;
-                if ($_FILES["input-file"]["error"] > 0)
-                {
-                    $err = true;
-                    echo "<p class = \"error\">"."Error: Input file" . $_FILES["input-file"]["error"] . "</p>";
-                }
-                else if (($_FILES["input-file"]["size"] > 2000000) || !in_array($extension, $allowedExts))
-                {
-                    
-                    $err = true;
-                    echo "<p class = \"error\">"."input file size > 20kb or its not .txt extension</p>";
-                }
-                    /*end*/
-                if(!$err)
-                {
-                    //output file
-                    $temp = explode(".", $_FILES["output-file"]["name"]);
-                    $extension = end($temp);
-                    if ($_FILES["output-file"]["error"] > 0)
-                    {
-                        $err = true;
-                        echo "<p class = \"error\">"."Error: Input file" . $_FILES["output-file"]["error"] . "</p>";
-                    }
-                    else if (($_FILES["output-file"]["size"] > 2000000) || !in_array($extension, $allowedExts))
-                    {  
-                        $err = true;
-                        echo "<p class = \"error\">"."output file size > 20kb or its not .txt extension</p>";
-                    }
-                    if(!$err)
-                    {
-                        $query = "INSERT into questions (difficulty, name) values ('".$_POST['ques-level']."', '".$_POST['ques-name']."')";
-                        if(!mysqli_query($con,$query))
-                            echo "<p class = \"error\">".mysqli_error($con)."</p>";
-                       exec("mkdir ../input/".string_to_cmd($_POST['ques-name']));
-                        echo "after\n";
-                        
-                       $f = fopen("../input/temp.txt",'w');
+                echo "<p class = \"error\">"."Error: Input file" . $_FILES["input-file"]["error"] . "</p>";
+            }
+            else if (($_FILES["input-file"]["size"] > 2000000) || !in_array($extension, $allowedExts))
+            {
+                echo "<p class = \"error\">"."input file size > 20kb or its not .txt extension</p>";
+            }
+            else
+            {
+                $f = fopen("../input/temp.txt",'w');
                         fclose($f);
                         echo "<h1>".$_POST['ques-name']."</h1>";
                         move_uploaded_file($_FILES["input-file"]["tmp_name"],
@@ -144,10 +119,24 @@ error_reporting(E_ALL);
                         /*
                          *end
                          */
-                          exec("mkdir ../output/".string_to_cmd($_POST['ques-name']));
-                        echo "after\n";
-                        
-                       $f = fopen("../output/temp.txt",'w');
+                /*end*/
+            }
+                //output file
+            $temp = explode(".", $_FILES["output-file"]["name"]);
+            $extension = end($temp);
+            if ($_FILES["output-file"]["error"] > 0)
+            {
+                $err = true;
+                echo "<p class = \"error\">"."Error: Input file" . $_FILES["output-file"]["error"] . "</p>";
+            }
+            else if (($_FILES["output-file"]["size"] > 2000000) || !in_array($extension, $allowedExts))
+            {  
+                $err = true;
+                echo "<p class = \"error\">"."output file size > 20kb or its not .txt extension</p>";
+            }
+            else
+            {
+                     $f = fopen("../output/temp.txt",'w');
                         fclose($f);
                         /*$f = fopen("../output/" . $_POST['ques-name'].".txt",'w');
                         fclose($f);*/
@@ -176,94 +165,22 @@ error_reporting(E_ALL);
                             }
                         }
                         fclose($f);
-                        
-                        
-                        
-                        
-                       /* move_uploaded_file($_FILES["output-file"]["tmp_name"],
-                        "../output/" . $_POST['ques-name'].".txt");*/
-                        //to be removed
-                        $ques_file_name = "../questions/".$_POST['ques-name'].".txt";
-                        $ques_file = fopen($ques_file_name,'w');
-                        fwrite($ques_file,$_POST['ques-statement']);
-                        fclose($ques_file);
-                        //header("Location: adminhome.php?id=1");
-                       
-                    }
-                    else 
-                        echo "Fasdfasdfasdfasdf";
-                }
-            }
-            else
-            {
-                 echo "<p class = \"error\">"."change the question name as the question already exists</p>";
-            }
-        }
-    }
-    /*else
-    {
-        if(isset($_POST['ques-statement']) && isset($_POST['ques-name']) && isset($_POST['ques-level']))
-        {
-            $query = "update questions set difficulty = '".$_POST['ques-level']."' where name = '".$_GET['id']."'";
-            $ques_file_name = "../questions/".$_POST['ques-name'].".txt";
-            $ques_file = fopen($ques_file_name,'w');
-            fwrite($ques_file,$_POST['ques-statement']);
-            fclose($ques_file);
-            
-            
-            $allowedExts = array("txt");
-            $temp = explode(".", $_FILES["input-file"]["name"]);
-            $extension = end($temp);
-            if($_FILES["input-file"]["error"] > 0)
-            {
-                echo "<p class = \"error\">"."Error: Input file" . $_FILES["input-file"]["error"] . "</p>";
-            }
-            else if (($_FILES["input-file"]["size"] > 2000000) || !in_array($extension, $allowedExts))
-            {
-                echo "<p class = \"error\">"."input file size > 20kb or its not .txt extension</p>";
-            }
-            else
-            {
-                $f = fopen("../input/" . $_POST['ques-name'].".txt",'w');
-                fclose($f);
-                move_uploaded_file($_FILES["input-file"]["tmp_name"],
-                "../input/" . $_POST['ques-name'].".txt");
-                echo "Stored in: " . "../input/" . $_POST['ques-name'].".txt";
-                /*end*/
-           // }
-         /*       //output file
-            $temp = explode(".", $_FILES["output-file"]["name"]);
-            $extension = end($temp);
-            if ($_FILES["output-file"]["error"] > 0)
-            {
-                $err = true;
-                echo "<p class = \"error\">"."Error: Input file" . $_FILES["output-file"]["error"] . "</p>";
-            }
-            else if (($_FILES["output-file"]["size"] > 2000000) || !in_array($extension, $allowedExts))
-            {  
-                $err = true;
-                echo "<p class = \"error\">"."output file size > 20kb or its not .txt extension</p>";
-            }
-            else
-            {
-                $f = fopen("../output/" . $_POST['ques-name'].".txt",'w');
-                fclose($f);
-                echo "<h1>".$_POST['ques-name']."</h1>";
-                echo "Stored in: " . "../input/" . $_POST['ques-name'].".txt";
-                move_uploaded_file($_FILES["output-file"]["tmp_name"],
-                "../output/" . $_POST['ques-name'].".txt");
-                echo "Stored in: " . "../output/" . $_POST['ques-name'].".txt";
                 header("Location: adminhome.php?id=1");
                
             }
-            header("Location: adminhome.php?id=3");//id = 3 is for updation
-        }
-    }*/
+            //header("Location: adminhome.php?id=3");//id = 3 is for updation
+    }
 ?>
 </div>
 <div style = "margin-left: 30px; margin-top : 30px;">
-<form action = "addques.php" method = "post" enctype='multipart/form-data'>
-    name <input type = "text" name = "ques-name" value = "<?php if(isset($_POST['ques-name']))
+<form action = "editques.php" method = "post" enctype='multipart/form-data'>
+    name &nbsp&nbsp<?php if(isset($_POST['ques-name']))
+                                                                    echo $_POST['ques-name'];
+                                                                else if(isset($_SESSION['ques-name']))
+                                                                    echo $_SESSION['ques-name'];
+                                                                else
+                                                                     echo "";?>
+        <input type = "hidden" name = "ques-name" value = "<?php if(isset($_POST['ques-name']))
                                                                     echo $_POST['ques-name'];
                                                                 else if(isset($_SESSION['ques-name']))
                                                                     echo $_SESSION['ques-name'];
