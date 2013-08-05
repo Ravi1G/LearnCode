@@ -1,7 +1,9 @@
 <?php
-    error_reporting(E_ALL);
-    ini_set('display_errors', '1');
+    //error_reporting(E_ALL);
+    //ini_set('display_errors', '1');
     session_start();
+    if(!isset($_SESSION['username']))
+        header("Location:index.php?id=4");
     
     include 'function.php';
     include 'server_constraints.php';
@@ -62,9 +64,10 @@
         {
             echo mysqli_errno();
         }
-         $query = "INSERT INTO code_submissions (`id`,`username`,`question`, `code_num`)
-                      values (NULL,'$user','$question_name','$code_num')";
-            mysqli_query($con, $query);
+         $query = "INSERT INTO code_submissions (`id`,`username`,`question`, `code_num`,`language`)
+                      values (NULL,'$user','$question_name','$code_num','".$_POST['lang']."')";
+           if(!mysqli_query($con, $query))
+                echo "chutiye".mysqli_error($con);
         if($_POST['lang'] == 'C')
             $code_file_name = "codes/".$code_num.".c";
         else if($_POST['lang'] == 'C++')
@@ -159,6 +162,7 @@
                     echo ("<br><span style=\"background:rgb(184,50,0); color:white; margin-left:400px; padding:10px;\">Run time Error on case $i ..... there might be an infinite loop in your code</span>");
                     echo "<div style=\"background:#9ACD32;width:200px;margin-top:10px;padding:10px 10px;font-size:12pt; border-radius:2px; color:white;\">Test: #$i</div><b>Input</b>";
                      echo "<div style = \"background:#eee;\">";
+                      $input_file_name = "input/".$question_name."/$i.txt";
                     $inp_f = fopen($input_file_name,'r');
                     while(!feof($inp_f))
                     {

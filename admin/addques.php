@@ -2,6 +2,8 @@
 error_reporting(E_ALL);
    ini_set('display_errors', '1');
     session_start();
+    if(!isset($_SESSION['username']))
+        header("Location:../index.php?id=4");
     include '../server_constraints.php';
     include '../function.php';
     $con = mysqli_connect($host, $server_username, $server_password, $db);

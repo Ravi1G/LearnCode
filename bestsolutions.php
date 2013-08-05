@@ -2,7 +2,10 @@
     error_reporting(E_ALL);
     ini_set('display_errors'.'1');
     session_start();
+    if(!isset($_SESSION['username']))
+        header("Location:index.php?id=4");
     include 'server_constraints.php';
+    include 'function.php';
     $problem_name = $_GET['id'];
     $con = mysqli_connect($host, $server_username, $server_password, $db);
 ?>
@@ -39,10 +42,11 @@
     $query = "select * from code_submissions where question = '".$problem_name."' and result ='accepted'";
     $result = mysqli_query($con, $query);
     echo mysqli_error($con);
+    echo mysqli_num_rows($result);
     while($row = mysqli_fetch_array($result))
     {
         echo '<tr>
-                <td><a href = "codedisplay.php?id='   .$row['code_num'].    '" target="_blank">'   .$row['code_num'].    '</a></td>
+                <td><a href = "codedisplay.php?id='   .$row['code_num'].'&lang='.convert_lang_to_url($row['language']).'" target="_blank">'   .$row['code_num'].    '</a></td>
                 <td><a href = problem.php?id=' .$problem_name. '>'.$row['username'].'</a></td>
                 <td>'.$row['sub_time'].'</td>
                 </tr> ';

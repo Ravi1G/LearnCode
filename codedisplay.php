@@ -2,6 +2,8 @@
     error_reporting(E_ALL);
     ini_set('display_errors'.'1');
     session_start();
+    if(!isset($_SESSION['username']))
+        header("Location:index.php?id=4");
     include 'server_constraints.php';
     $con = mysqli_connect($host, $server_username, $server_password, $db);
     $num = $_GET['id'];
@@ -42,7 +44,8 @@
         <form method = "post" action = "problem.php">
     <textarea id = "area" cols = "80" rows = "30">
 <?php
-    $code_file_name = "codes/".$num.".c";
+        $code_file_name = "codes/".$num.".".$_GET['lang'];
+
     $code_file = fopen($code_file_name,'r');
     $code = fread($code_file,filesize($code_file_name));
     $j = 0;

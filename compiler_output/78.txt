@@ -1,0 +1,2 @@
+codes/78.c: In function 'main':
+codes/78.c:8:26: warning: division by zero [-Wdiv-by-zero]

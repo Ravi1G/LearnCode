@@ -1,23 +1,21 @@
 Find the square of given number.
 
-Input: first input would be an integer t(<1000) followed by t lines.
-    Every line will contain one integer(<100000)
+Input: 
+    one integer(<100000)
     
-Output: output should contain t lines with each line giving the square of corresponding input.
+Output:
+    the square of corresponding input.
 
 eg:
 Input:
-5
 1
-2
-3
-4
-5
 
 Output:
 1
-4
-9
-16
+
+Input:
+5
+
+Output:
 25
 

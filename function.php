@@ -117,5 +117,12 @@ function substring($main, $sh)
     }
     return 0;
 }
+function convert_lang_to_url($x)
+{
+    if($x == "C++")
+        return "cpp";
+    if($x == "C")
+        return "c";
+}
 
 ?>

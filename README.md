@@ -28,16 +28,17 @@ Status
 - the normal spoj/codeforces style is working fine
 - admin could add + edit the questions
 - topcoder style still needs some work
-- frontend of few pages still needs to be done
 
 Installation
 =============
 
-+ create a new database in mysql
++ create a new database in mysql. you might give it any name.
 
 + update the database name, host, username and password of mysql in server_constraints.php
 
-+ setup the database using the dodge.sql file in the repo
++ setup the database using the dodge.sql file in the repo. It will create all the tables necessary for operation
 
-+ run it on your machine and add issues 
++ put all the code in var/www/<somefolder>. The folder in which you put the code + all the subfolders, need to have default root access (google it if you dont know how to use *chmod* and *chown* commands, otherwise all the read and write operations would fail.
+
++ It wont work on windows environment, as it uses gcc and g++ compilers installed on linux. Make sure on your linux machine, gcc and g++ are installed
 

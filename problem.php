@@ -3,6 +3,8 @@
         error_reporting(E_ALL);
         ini_set('display_errors'.'1');
         session_start();
+        if(!isset($_SESSION['username']))
+        header("Location:index.php?id=4");
         include 'server_constraints.php';
         include 'function.php';
         $con = mysqli_connect($host, $server_username, $server_password, $db);
@@ -70,7 +72,8 @@
                     </ul>
                 </div>
                 <div >
-                <a style="color:white;" href = <?php echo "bestsolutions.php?id=".$_GET['id'];?>>Best Solutions</a>
+                    <?php echo $_GET['id'];?>
+                <a style="color:white;" href = <?php echo "bestsolutions.php?id=".string_to_url($_GET['id']);?>>Best Solutions</a>
                 </div>
             </div>
         <textarea class = "normal" style="background-image:url('images/cream_pixels.png'); outline: none; border: none" cols = "80"  readonly>

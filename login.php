@@ -12,9 +12,12 @@
     if(mysqli_num_rows($result))
     {
         session_start();
-        $_SESSION['username'] = $_POST[login_username];
+        $_SESSION['username'] = $_POST['login_username'];
         echo "fasd  ".$_SESSION['username'];
-        header("Location: problemset.php");
+        if($_POST['login_username'] == "admin")
+            header("Location:admin/adminhome.php");
+        else
+            header("Location: problemset.php");
         //die();
     }
     else

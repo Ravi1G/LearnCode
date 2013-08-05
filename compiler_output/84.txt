@@ -1,0 +1,2 @@
+codes/84.c: In function 'main':
+codes/84.c:10:9: warning: format '%lld' expects argument of type 'long long int', but argument 2 has type 'long int' [-Wformat]

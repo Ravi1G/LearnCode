@@ -1,0 +1,2 @@
+codes/2.c:1:1: error: expected identifier or '(' before '/' token
+codes/2.c:1:1: error: stray '#' in program

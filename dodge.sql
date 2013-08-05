@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 30, 2013 at 07:52 PM
+-- Generation Time: Aug 05, 2013 at 01:40 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.3.10-1ubuntu3.7
 
@@ -52,8 +52,9 @@ CREATE TABLE IF NOT EXISTS `code_submissions` (
   `question` text NOT NULL,
   `code_num` int(11) NOT NULL,
   `result` enum('runtime error','accepted','compilation error','wrong answer') NOT NULL,
+  `language` enum('C','C++') NOT NULL DEFAULT 'C',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=226 ;
 
 -- --------------------------------------------------------
 
@@ -66,18 +67,17 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `difficulty` enum('A','B','C') NOT NULL DEFAULT 'A',
   `statement` text NOT NULL,
+  `test cases` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
 
 --
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`name`, `id`, `difficulty`, `statement`) VALUES
-('square', 1, 'A', 'Find the square of given number.\r\n\r\nInput: first input would be an integer t(<1000) followed by t lines.\r\n    Every line will contain one integer(<100000)\r\n    \r\nOutput: output should contain t lines with each line giving the square of corresponding input.\r\n\r\neg:\r\nInput:\r\n5\r\n1\r\n2\r\n3\r\n4\r\n5\r\n\r\nOutput:\r\n1\r\n4\r\n9\r\n16\r\n25\r\n'),
-('powers', 2, 'A', ''),
-('cube', 18, 'A', 'fdsa'),
-('asd', 21, 'A', 'Question Statement');
+INSERT INTO `questions` (`name`, `id`, `difficulty`, `statement`, `test cases`) VALUES
+('Bhaag Milkha Bhaag', 44, 'B', '', 13),
+('square', 45, 'A', '', 7);
 
 -- --------------------------------------------------------
 
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) DEFAULT NULL,
   `college` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
 
 --
 -- Dumping data for table `users`

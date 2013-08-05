@@ -1,0 +1,6 @@
+codes/24.c: In function 'main':
+codes/24.c:8:5: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'scanf'
+codes/24.c:8:17: error: 't' undeclared (first use in this function)
+codes/24.c:8:17: note: each undeclared identifier is reported only once for each function it appears in
+codes/24.c:10:5: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'while'
+codes/24.c:12:21: error: 'n' undeclared (first use in this function)
