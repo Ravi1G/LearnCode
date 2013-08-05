@@ -1,4 +1,0 @@
-codes/22.c: In function 'main':
-codes/22.c:8:5: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'scanf'
-codes/22.c:8:17: error: 't' undeclared (first use in this function)
-codes/22.c:8:17: note: each undeclared identifier is reported only once for each function it appears in

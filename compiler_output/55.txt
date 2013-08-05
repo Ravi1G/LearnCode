@@ -1,3 +1,0 @@
-codes/55.c: In function 'main':
-codes/55.c:11:9: warning: format '%ld' expects argument of type 'long int *', but argument 2 has type 'int *' [-Wformat]
-codes/55.c:12:9: warning: format '%lld' expects argument of type 'long long int', but argument 2 has type 'int' [-Wformat]

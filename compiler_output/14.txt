@@ -1,2 +1,0 @@
-codes/14.cpp: In function 'int main()':
-codes/14.cpp:13:8: error: 't' was not declared in this scope
